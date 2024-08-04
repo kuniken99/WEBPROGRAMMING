@@ -1,0 +1,364 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<style>
+ 
+    h1 {
+        margin-top: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .manageUser {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .table-container {
+        max-height: 300px; /* Adjust as needed */
+        overflow-y: auto;
+        margin: 30px 0;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background: #4CAF50;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .customerOptions, .employeeOptions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .addBtn {
+        color: white;
+        background: #4CAF50;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+        transition: background 0.3s, transform 0.3s;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+        .addBtn:hover {
+            background: #595957;
+            transform: scale(1.1);
+        }
+
+
+    .manageUser .homeBtn {
+        color: white;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+
+    .manageUser .homeBtn:hover {
+            color: white;
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+    .sort {
+        margin: 10px 0;
+        display: inline-block;
+    }
+
+    select {
+        margin-left: 10px;
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    .action {
+        display: flex;
+        gap: 10px;
+    }
+
+    .Btn, .deleteBtn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .Btn {
+        background-color: #595957;
+        color: white;
+    }
+
+    .Btn:hover {
+        background-color: #404040;
+    }
+
+    .deleteBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        .deleteBtn:hover {
+            background-color: rgb(255, 69, 69);
+        }
+
+        .Btn svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+            margin-left: 8px; /* Add space between text and icon */
+        }
+
+        .deleteBtn svg{
+        width: 16px;
+        height: 16px;
+        fill: white;
+        }
+
+    .section {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .home-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .tableHeader{
+        height: 40px;
+    }
+</style>
+
+<div class="manageUser">
+    <h1>Manage Users</h1>
+   
+    <div class="back-button-container">
+        <a asp-controller="Admin" asp-action="Index" class="homeBtn">Back to Home</a>
+    </div>
+
+    <div class="section">
+        <div class="section-header">
+            <h2>Employees</h2>
+            <div class="employeeOptions">
+                <form asp-controller="Account" asp-action="AddEmployee" method="get">
+                    <button type="submit" class="addBtn">Add Employees</button>
+                </form>
+            </div>
+        </div>
+    
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr class="tableHeader">
+                        <th>Staff ID</th>
+                        <th>Full Name</th>
+                        <th>Role</th>
+                        <th>Username</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Users.Count() == 0)
+                    {
+                        <tr><td colspan="6">Please register a staff member.</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (User user in Model.Users)
+                        {
+                            foreach (string roleName in user.RoleNames)
+                            {
+                                if (roleName == "Admin" || roleName == "Employee")
+                                {
+                                    <tr>
+                                        <td>@user.Id</td>
+                                        <td>@user.Name</td>
+                                        <td>@roleName</td>
+                                        <td>@user.UserName</td>
+                                        <td>@user.PhoneNumber</td>
+                                        <td class="action">
+                                            <form asp-controller="Account" asp-action="EditEmployee" asp-route-id="@user.Id" method="get">
+                                                <button type="submit" class="Btn">
+                                                    Edit
+                                                    <svg viewBox="0 0 512 512" class="svg">
+                                                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <form asp-controller="Account" asp-action="DeleteEmployee" asp-route-id="@user.Id" method="post" onsubmit="return deleteEmployee('Are you sure you want to delete this')">
+                                                <button type="submit" class="deleteBtn">
+                                                    <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                                                </button>
+                                            </form>
+                                            <form asp-controller="Account" asp-action="AdminChangePassword" asp-route-id="@user.Id" method="get">
+                                                <button type="submit" class="Btn">
+                                                    Change Password
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">
+            <h2>Customer</h2>
+            <div class="employeeOptions">
+             
+            </div>
+        </div>
+
+
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr class="tableHeader">
+                        <th>Customer ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Users.Count() == 0)
+                    {
+                        <tr><td colspan="6">There are no customer accounts.</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (User user in Model.Users)
+                        {
+                            foreach (string roleName in user.RoleNames)
+                            {
+                                if (roleName == "Customer")
+                                {
+                                    <tr>
+                                        <td>@user.Id</td>
+                                        <td>@user.Name</td>
+                                        <td>@user.Email</td>
+                                        <td>@user.Address</td>
+                                        <td>@user.PhoneNumber</td>
+                                        <td class="action">
+                                            <form asp-controller="Account" asp-action="EditCustomer" asp-route-id="@user.Id" method="get">
+                                                <button type="submit" class="Btn">
+                                                    Edit
+                                                    <svg viewBox="0 0 512 512" class="svg">
+                                                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <!-- Delete button -->
+                                            <form asp-controller="Account" asp-action="DeleteEmployee" asp-route-id="@user.Id" method="post" onsubmit="return deleteCustomer('Are you sure you want to delete this')">
+                                                <button type="submit" class="deleteBtn">
+                                                    <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                                                </button>
+                                            </form>
+                                            <form asp-controller="Account" asp-action="AdminChangePassword" asp-route-id="@user.Id" method="get">
+                                                <button type="submit" class="Btn">
+                                                    Change Password
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function deleteCustomer(action) {
+
+        return confirm(action);
+
+        if (confirm) {
+            alert("The customer is deleted");
+        }
+
+    }
+
+
+    function deleteEmployee(action) {
+
+        return confirm(action);
+
+        if (confirm) {
+            alert("The Employee is deleted");
+        }
+
+    }
+</script>

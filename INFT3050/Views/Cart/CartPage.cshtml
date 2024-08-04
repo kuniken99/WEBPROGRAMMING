@@ -1,0 +1,424 @@
+@model CartViewModel
+@{
+    ViewData["Title"] = "Cart Page";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f2f2f2;
+    }
+
+    .CartPage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .cartTitles {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .cartTitles h2 {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .cartTitles a button {
+            font-size: 1.2em;
+            color: #007bff;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+            .cartTitles a button:hover {
+                text-decoration: underline;
+            }
+
+    .cartContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    }
+
+    .shoppingCart {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .cartHeader {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+        .cartHeader > div {
+            flex: 1;
+            text-align: center;
+        }
+
+    .cartProduct {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .cartProduct:last-child {
+            border-bottom: none;
+        }
+
+    .cartDetails {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+    }
+
+    .column1 {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
+    }
+
+        .column1 img {
+            height: 100px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+    .cartProduct .priceColumn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        text-align: center;
+    }
+
+        .cartProduct .priceColumn p {
+            margin: 5px 0;
+        }
+
+    .cartProduct .column3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        text-align: center;
+    }
+
+        .cartProduct .column3 p {
+            margin: 5px 0;
+        }
+
+
+        .cartProduct .column3 .pricee, .priceColumn .cartPrice {
+            color: #333;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+    .column3 .pricee, .priceColumn .cartPrice {
+            color: #333;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+
+    .cartProduct .column4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        text-align: center;
+    }
+
+    .cartProduct column4 p {
+        margin: 5px 0;
+    }
+
+    .checkoutButton {
+        background-color: #56B280;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+        .checkoutButton:hover {
+            color: white;
+            background-color: #449d68;
+        }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .quantity button {
+            background-color: #56B280;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .quantity input {
+            width: 50px;
+            text-align: center;
+        }
+
+    .priceBox {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .emptyCart {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .subTotal {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    input[type="checkbox"] {
+        accent-color: #56B280;
+    }
+
+    .btn-delete {
+        background-color: #ff4757;
+        position: relative;
+    }
+
+        .btn-delete::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            z-index: 1;
+        }
+
+        .btn-delete:hover::before {
+            display: block;
+        }
+
+    .svgIcon, .svg {
+        width: 16px;
+        fill: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover .svgIcon, .btn:hover .svg {
+        transform: scale(1.1);
+    }
+
+    input[type="checkbox"] {
+        accent-color: #56B280;
+        transform: scale(1.4); /* Adjust the scale value as needed */
+        margin-right: 10px; /* Optional: Add some space between the checkbox and the text */
+    }
+
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #333; /* Set the text color to a non-blue color */
+    }
+
+    .itemImg {
+        margin-bottom: 10px; /* Add some space between the image and the text */
+    }
+
+    .centered-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .backToShoppingButton {
+        color: white;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        padding: 12px 24px;
+        border-radius: 5px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+        .backToShoppingButton:hover {
+            color: white;
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+</style>
+
+<div class="CartPage">
+    <div class="cartTitles">
+        <h1>Your Cart Items</h1>
+        <a asp-controller="Home" asp-action="Index"><button>Back to Shopping</button></a>
+    </div>
+
+    <div class="cartContent">
+        <div class="shoppingCart">
+            <div class="cartHeader">
+                <div>Product</div>
+                <div>Product Price</div>
+                <div>Quantity</div>
+                <div>Total</div>
+                <div>Delete</div>
+            </div>
+
+            @if (Model.List.Count() == 0)
+            {
+                <p class="emptyCart">Your cart is empty. Please add an item.</p>
+            }
+            else
+            {
+                @foreach (var item in Model.List)
+                {
+                    bool mainImageFound = false;
+
+                    <div class="cartProduct">
+                        <div class="column1">
+                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Item.ItemID">
+                                @foreach (var image in Model.Images)
+                                {
+                                    if (image.ItemID == item.Item.ItemID)
+                                    {
+                                        <div class="centered-content">
+                                            <img class="itemImg" src="~/Image/@image.ImagePath" alt="Image product" />
+                                            <p>@item.Item.ItemName</p>
+                                        </div>
+
+                                        mainImageFound = true;
+                                        <!-- exit the loop -->
+                                        break;
+                                    }
+                                }
+                                @if (!mainImageFound)
+                                {
+                                    <!-- Not found -->
+                                    <div class="mySlides">
+                                        <img src="~/Image/vitabottle.png" class="imgGallery">
+                                    </div>
+                                }
+                            </a>
+                        </div>
+                        <div class="priceColumn">
+                            <!-- Price with 2 decimal place only -->
+                            <p class="cartPrice">$@item.Item.Price.ToString("F2")</p>
+                        </div>
+                        <div class="column3">
+                            <form asp-action="UpdateQuantity" asp-controller="Cart" method="post" style="display:inline;">
+                                <div class="quantity">
+                                    <input type="hidden" name="id" value="@item.Item.ItemID" />
+                                    <button type="button" onclick="updateQuantity(this, -1)">-</button>
+                                    <input type="text" name="quantity" value="@item.Quantity" readonly />
+                                    <button type="button" onclick="updateQuantity(this, 1)">+</button>
+                                    <button type="submit" style="display:none;">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="column3">
+                            <!-- Price with 2 decimal place only -->
+                            <p class="pricee">$@item.Subtotal.ToString("F2")</p>
+                        </div>
+
+                        <!-- Delete button: -->
+                        <div class="column4">
+                            <form asp-action="Remove" asp-controller="Cart" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.Item.ItemID" />
+                                <button type="submit" class="btn btn-delete" data-tooltip="Delete">
+                                    <svg viewBox="0 0 448 512" class="svgIcon">
+                                        <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="priceBox">
+            <p class="subTotal">Sub-total: $<span id="subtotal">@Model.Subtotal</span></p>
+            <p>Tax and shipping cost will be calculated later</p>
+            @if (Model.List.Count() == 0)
+            {
+                <a asp-controller="Home" asp-action="Index" class="checkoutButton">Back to Shopping</a>
+            }
+            else
+            {
+                <a asp-controller="Cart" asp-action="CheckOutPage" asp-route-id="@Model.CustomerUser.Id" class="checkoutButton">Proceed to checkout</a>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', updateSubtotal);
+
+    function updateSubtotal() {
+        let subtotal = 0;
+        document.querySelectorAll('.cartProduct').forEach(product => {
+            const priceElement = product.querySelector('.pricee');
+            if (priceElement) {
+                subtotal += parseFloat(priceElement.textContent.replace('$', ''));
+            }
+        });
+        document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+    }
+
+    function updateQuantity(button, delta) {
+        var quantityInput = button.parentElement.querySelector('input[name="quantity"]');
+        var quantity = parseInt(quantityInput.value) + delta;
+        if (quantity < 1) quantity = 1;
+        quantityInput.value = quantity;
+        button.parentElement.querySelector('button[type="submit"]').click();
+    }
+</script>

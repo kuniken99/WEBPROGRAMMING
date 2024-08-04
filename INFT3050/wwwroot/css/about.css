@@ -1,0 +1,59 @@
+﻿/*About us */
+
+.aboutUsTop {
+    display: flex;
+    justify-content: space-between;
+    height: 60vh;
+}
+
+    .aboutUsTop .column1 img {
+        height: 50vh;
+        border-radius: 10px;
+        width: auto;
+        margin: 0 0 0 40px;
+    }
+
+    .aboutUsTop .column1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .aboutUsTop .column2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+.aboutUsCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+.aboutUsBottom {
+    display: flex;
+    height: 80vh;
+    gap: 100px;
+}
+
+    .aboutUsBottom .column1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 60px 0 60px;
+    }
+
+
+        .aboutUsBottom .column1 img {
+            height: 40vh;
+        }
+
+    .aboutUsBottom .column2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 0 60px 0 60px;
+    }

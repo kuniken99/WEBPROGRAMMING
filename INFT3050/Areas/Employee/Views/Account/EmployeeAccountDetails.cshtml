@@ -1,0 +1,206 @@
+﻿@model User
+
+<style>
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+        }
+
+        .profile-container h4 {
+            text-align: center;
+            color: #666;
+        }
+
+    .profile-change {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .profile-change label {
+            font-weight: bold;
+            flex: 1;
+            margin-right: 20px;
+            min-width: 100px;
+        }
+
+        .profile-change input, .profile-change span {
+            flex: 2;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-change span {
+            background-color: #f9f9f9;
+            padding-left: 10px;
+        }
+
+        .profile-change a {
+            margin-left: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .profile-change a:hover {
+                text-decoration: underline;
+            }
+
+    .profile-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .profile-item label {
+            font-weight: bold;
+            flex: 1;
+            margin-right: 10px;
+            min-width: 100px;
+        }
+
+        .profile-item input, .profile-item span {
+            flex: 2;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-item span {
+            background-color: #f9f9f9;
+            padding-left: 10px;
+        }
+
+        .profile-item a {
+            margin-left: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .profile-item a:hover {
+                text-decoration: underline;
+            }
+
+    .profile-image-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .profile-image-container .font-weight-bold {
+        display: block;
+        font-weight: bold;
+    }
+
+    .profile-image-container .text-black-50 {
+        display: block;
+        color: #666;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+    small {
+        display: block;
+        color: #666;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .update-btn {
+        margin-left: 10px;
+    }
+
+    .delete-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+   
+</style>
+
+<div class="accountPage">
+
+    <div class="profile-container">
+        <h1>My Profile</h1>
+        <h4>Manage and protect your account</h4>
+
+        <div class="profile-image-container">
+            <img class="profile-image" src="~/Image/defaultProfile.jpg" alt="Profile Image">
+            <span class="font-weight-bold">@Model.Name</span>
+            <span class="text-black-50">@Model.Email</span>
+        </div>
+
+        <div class="profile-item">
+            <label>Username</label>
+            <span>@Model.UserName</span>
+        </div>
+        <div class="profile-item">
+            <label>Full Name</label>
+            <span>@Model.Name</span>
+        </div>
+
+
+        <div class="profile-change">
+            <label>Phone Number</label>
+            <span>@Model.PhoneNumber</span>
+
+        </div>
+
+        <div class="profile-change">
+            <form asp-area="" asp-action="ChangePassword" asp-controller="Account" method="get" style="display:inline;">
+                <button class="update-btn" type="submit">Change Password</button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+</div>
+

@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+
+        #navigationLink {
+        list-style: none;
+        padding: 0;
+        }
+
+        #navigationLink a {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.5s ease-in-out;
+        }
+
+        #navigationLink a.activeLink {
+            background-color: #0074d9; /* Highlight color for active button */
+            color: black; /* Text color for active button */
+        }
+
+
+        /*Navigation*/
+
+        header {
+        margin: 0;
+        padding: 0;
+        }
+
+
+
+        .mainNav {
+            display: flex;
+            background: #66b37d;
+            font-weight: 400;
+            color: white;
+            align-items: center;
+            position: relative;
+            justify-content: space-between;
+            top: 0;
+            left: 0;
+            height: 80px;
+            margin: -5px 0 0 0;
+        }
+
+        .mainNav .mainLinks {
+        color: white;
+        display: flex;
+        }
+
+        .mainNav .mainLinks a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+
+
+        .leftNav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 20px;
+        }
+
+
+
+        .rightNav {
+        padding-right: 20px;
+        display: flex;
+        gap: 20px;
+        justify-content: center; /* Centers items horizontally within .rightNav */
+        align-items: center; /* Centers items vertically within .rightNav */
+        }
+
+
+
+
+        .mainNav .mainLinks {
+        }
+
+        .mainNav .mainLinks a {
+        margin-top: 100px;
+        }
+
+        .mainNav .mainLinks a:hover {
+            text-decoration: none;
+            border-radius: 20px;
+        }
+
+
+        mainNav .mainLinks a:active {
+        background: #0b218f;
+        }
+
+
+        .sign-in {
+        padding: 5px 15px;
+        border: 1px solid white;
+        border-radius: 10px;
+        background-color: #56B280;
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+        }
+
+
+
+        .nav-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        }
+
+        .nav-links li {
+        margin-left: 20px;
+        position: relative;
+        }
+
+        .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 1em;
+        }
+
+        .bg-body-tertiary {
+        
+            color: white;
+        }
+
+        .text-center p-3 {
+            text-decoration: none;
+            background: white;
+        }
+
+        .logBtn {
+            width: 100px;
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <nav class="mainNav" id="navigationLink">
+            <div>
+                <div class="leftNav">
+                    <!-- Vita+ Logo -->
+                    <div class="logo">
+                        <a asp-area="Employee" asp-controller="Employee" asp-action="Index" class="logo-link" style="color: inherit;">
+                            <img src="~/Image/VitaLogo.png" alt="Vita Logo" class="logo-image" />Vita+
+                        </a>
+                    </div>
+
+                    <!-- Navbar List -->
+
+
+                    <ul class="nav-links">
+                        <li><a class="nav-link text-white" asp-area="Employee" asp-controller="Employee" asp-action="Index">Employee Page</a></li>
+
+                      
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="rightNav">
+
+
+
+
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<User> signInManager
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <a asp-area="Employee" asp-controller="Account" asp-action="EmployeeAccountDetails" asp-route-name="@User.Identity?.Name">
+                        <img class="profileImg" src="~/Image/defaultProfile.jpg" alt="View Account details" />
+                        <span class="text-light">@User.Identity?.Name</span>
+                    </a>
+                }
+
+
+                
+                <!-- These Login buttons and links could be a partial class or a view component -->
+                @* @using Microsoft.AspNetCore.Identity *@
+                @inject SignInManager<User> signInManager
+                @if (signInManager.IsSignedIn(User))
+                {
+                    // signed-in user - Log Out button and username and change password link
+
+
+                    <form method="post" asp-action="LogOut" asp-controller="Account"
+                          asp-area="" class="logBtn">
+                        <input type="submit" value="Log Out"
+                               class="btn btn-outline-light" />
+                    </form>
+
+                }
+                else
+                {
+                    // anonymous user - Register link and Log In button
+
+                    <a asp-action="Login" asp-controller="Account"
+                       asp-area="" class="logBtn">
+                        <input type="submit" value="Log In"
+                               class="btn btn-outline-light" />
+                   </a>
+
+                }
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+            © 2020 Copyright: Vita+
+         
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+    <script>
+
+        const navigationItems = document.querySelectorAll('#navigationLink a');
+
+        navigationItems.forEach((item) => {
+            item.addEventListener('click', () => {
+
+                navigationItems.forEach((navItem) => {
+                    navItem.classList.remove('activeLink');
+                });
+
+
+                item.classList.add('activeLink');
+            });
+        });
+
+    </script>
+</body>
+</html>

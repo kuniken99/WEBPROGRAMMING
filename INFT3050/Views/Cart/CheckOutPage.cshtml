@@ -1,0 +1,231 @@
+﻿@model CartViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #56B280;
+        }
+
+        .links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #56B280;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+                color: #56B280;
+                text-decoration: underline;
+            }
+
+        .nav-item {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #56B280;
+            font-weight: bold;
+        }
+
+        .form-section, .summary {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="email"], select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #2ecc71;
+            }
+
+        .summary {
+            position: relative;
+        }
+
+            .summary img {
+                width: 100px;
+                height: 100px;
+                object-fit: contain;
+                margin-right: 10px;
+                border-radius: 8px;
+            }
+
+            .summary p {
+                margin: 5px 0;
+                font-size: 16px;
+            }
+
+        .line {
+            border-bottom: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .checkbox label {
+            font-size: 16px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .free-shipping {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+            color: #56B280;
+        }
+
+        .subTotal {
+            font-weight: 600;
+            font-size: 1.5em;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #56B280;
+            padding: 10px 20px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item p {
+            margin-left: 10px;
+        }
+    </style>
+    <script>
+        function toggleAddressInput() {
+            var addressInputSection = document.getElementById('address-input-section');
+            var savedAddresses = document.getElementById('saved-addresses');
+
+            if (savedAddresses.value === 'new') {
+                addressInputSection.style.display = 'block';
+            } else {
+                addressInputSection.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout Page</h1>
+
+        <div class="section">
+            <nav class="links">
+                <a asp-controller="Cart" asp-action="CartPage">Cart</a>&gt;
+                <span class="nav-item"> Shipping</span>&gt;
+                <span> Payment</span> &gt;
+                <span>Order Confirmation</span>
+            </nav>
+
+            <div class="form-section">
+                <h2 class="section-title">Shipping Address</h2>
+                <p class="free-shipping">Free Shipping</p>
+
+                <select id="saved-addresses" onchange="toggleAddressInput()">
+                    <option value="@Model.CustomerUser.Address">@Model.CustomerUser.Address</option>
+                    <option value="new">Add a new address</option>
+                </select>
+
+                <div id="address-input-section" style="display: none;">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="text" placeholder="Full Address and Number" required>
+                    <input type="text" placeholder="Email" required>
+                    <input type="text" placeholder="Mobile Number" required>
+                    <div class="checkbox">
+                        <input type="checkbox" id="save-info">
+                        <label for="save-info">Save this information for a future fast checkout</label>
+                    </div>
+                </div>
+
+                <br />
+                <a asp-controller="Cart" asp-action="Payment" onclick="checkAddress()"><button>Go to Payment</button></a>
+                <a asp-controller="Cart" asp-action="CartPage">Back to cart</a>
+            </div>
+
+            <div class="summary">
+                <h2>Order Summary</h2>
+
+                <!-- TOTAL PURCHASE-->
+                <h3 class="subTotal">Total Purchase: $<span id="subtotal">@Model.Subtotal.ToString("F2")</span></h3>
+
+                @foreach (var item in Model.List)
+                {
+                    bool mainImageFound = false;
+                    <div class="item">
+                        @foreach (var image in Model.Images)
+                        {
+                            if (image.ItemID == item.Item.ItemID)
+                            {
+                                <img src="~/Image/@image.ImagePath" alt="Product Image" />
+                                mainImageFound = true;
+                                break;
+                            }
+                        }
+                        @if (!mainImageFound)
+                        {
+                            <img src="~/Image/vitabottle.png" alt="Product Image" />
+                        }
+                        <div class="item-details">
+                            <p>@item.Item.ItemName</p>
+                            <p>Qty: @item.Quantity</p>
+                            <p>@($"${item.Item.Price * item.Quantity:F2}")</p> <!-- Price calculation * quantity -->
+                        </div>
+                    </div>
+                }
+            </div>
+
+           
+
+        </div>
+    </div>
+</body>
+</html>

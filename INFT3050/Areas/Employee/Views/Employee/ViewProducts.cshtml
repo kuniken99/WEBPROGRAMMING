@@ -1,0 +1,183 @@
+﻿@model ItemImageListViewModel
+@{
+    ViewData["Title"] = "View Items";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+    }
+
+
+
+    .manageProduct h1 {
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .product-options {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+    .table-container {
+        max-height: 600px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        position: relative;
+        border-radius: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        position: sticky;
+        top: -10px;
+        z-index: 1;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .product-img {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+    }
+
+    .manageProduct .homeBtn {
+        color: white;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+        .manageProduct .homeBtn:hover {
+            color: white;
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+    .manageProduct {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .manageProduct .options {
+        display: flex;
+        justify-content: space-between;
+        height: 20px;
+        margin: 20px;
+
+    }
+
+        .manageProduct p{
+           font-weight: 600;
+           font-size: 24px;
+
+        }
+</style>
+
+<div class="manageProduct">
+
+<div class="section">
+    <div class="section-header">
+        <h1>View Items</h1>
+            <div class="options">
+                <div class="back-button-container">
+                    <button onclick="window.history.back();" class="homeBtn">Back to Home</button>
+                </div>
+              
+            </div>
+            <div>
+                <p>Total Items: @Model.Items.Count</p>
+            </div>
+    </div>
+    
+   
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Vitamin Type</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Company</th>
+                    <th>Date Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    bool imageFound = false;
+                    <tr>
+                        <td>@item.ItemID</td>
+                        <td>
+                            @foreach (var image in Model.Images)
+                            {
+                                if (item.ItemID == image.ItemID)
+                                {
+                                    <img class="product-img" src="~/Image/@image.ImagePath" alt="@image.ImageID" />
+                                    imageFound = true;
+                                    break;
+                                }
+                            }
+                            @if (!imageFound)
+                            {
+                                <img class="product-img" src="~/Image/vitabottle.png" alt="Product Image" />
+                            }
+                        </td>
+                        <td>@item.ItemName</td>
+                        <td>@item.VitaminType</td>
+                        <td>@item.Description</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Category</td>
+                        <td>@($"${item.Price:F2}")</td>
+                        <td>@item.Company</td>
+                        <td>@item.DateAdded</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

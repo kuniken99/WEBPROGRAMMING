@@ -1,0 +1,86 @@
+﻿@model ItemImageListViewModel
+@{
+    ViewData["Title"] = "Category";
+}
+
+<style>
+ 
+</style>
+
+<div>
+    <div class="brandHeading">
+        <h2>All Products</h2>
+    </div>
+
+    <div class="prodOptions">
+        <div class="category">
+            <div class="categoryTable">
+                <div>
+                    <h3>Sort by Price</h3>
+
+                </div>
+                
+                <div class="radio-toolbar">
+                    <input type="radio" id="highPrice" name="radio" value="highPrice" onclick="sortProducts('highest')" checked>
+                    <label for="highPrice">Highest Price</label>
+
+                    <input type="radio" id="lowPrice" name="radio" value="lowPrice" onclick="sortProducts('lowest')">
+                    <label for="lowPrice">Lowest Price</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="productGalll">
+            <!-- Show all items (products) -->
+            <div class="productRow" id="productContainer">
+                @foreach (var item in Model.Items)
+                {
+                    bool imageFound = false;
+                    <div class="product" id="product">
+                        <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.ItemID">
+                            <div class="imagebox">
+                                @foreach (var image in Model.Images)
+                                {
+                                    if (item.ItemID == image.ItemID)
+                                    {
+                                        <div class="imagebox">
+                                            <img alt="imageProduct" class="imageProduct" src="~/Image/@image.ImagePath" height="120px">
+                                        </div>
+                                        imageFound = true;
+                                        break;
+                                    }
+                                }
+                                @if (!imageFound)
+                                {
+                                    <div class="imagebox">
+                                        <img alt="imageProduct" class="imageProduct" src="~/Image/vitabottle.png" height="120px">
+                                    </div>
+                                }
+                            </div>
+                            <div class="contentDetails">
+                                <div class="productName">@item.ItemName</div>
+                                <div class="price">@($"${item.Price:F2}")</div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function sortProducts(order) {
+        var container = document.getElementById('productContainer');
+        var products = Array.from(container.getElementsByClassName('product'));
+
+        products.sort((a, b) => {
+            var priceA = parseFloat(a.querySelector('.price').textContent.replace('$', ''));
+            var priceB = parseFloat(b.querySelector('.price').textContent.replace('$', ''));
+            return order === 'highest' ? priceB - priceA : priceA - priceB;
+        });
+
+        container.innerHTML = '';
+        products.forEach(product => container.appendChild(product));
+    }
+</script>

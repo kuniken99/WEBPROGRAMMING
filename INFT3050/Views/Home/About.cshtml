@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <style>
+        .aboutUsTop{
+            gap: 100px;
+        }
+
+        .aboutUs {
+            margin: 20px;
+        }
+
+        .aboutUsBottom {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            gap: 100px;
+            margin: -20px 0 0 0;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            margin-right: 50px;
+            text-align: left;
+        }
+
+        .content2{
+
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+
+        .aboutUsBottom {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .text-content {
+            max-width: 50%;
+        }
+
+        .text-content1{
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .text-content1 h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+
+            .text-content h1 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+
+            .text-content h2 {
+                font-size: 1.5em;
+                margin-top: 20px;
+            }
+
+            .text-content ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+                .text-content ul li {
+                    margin: 10px 0;
+                }
+
+            .text-content a {
+                display: inline-block;
+                margin-top: 20px;
+                text-decoration: none;
+                color: #007BFF;
+            }
+
+        .image-content {
+            max-width: 45%;
+        }
+
+            .image-content img {
+                width: auto;
+                height: 70vh;
+                border-radius: 10px;
+            }
+
+   
+
+        .aboutUsCenter{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+                     text-align: center;
+            border-radius: 12px;
+        }
+
+        .aboutUsCenter .column{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background: #279144;
+                height: 240px;
+                width: 1000px;
+                border-radius: 8px;
+                padding: 10px;
+        }
+
+            .aboutUsCenter .column p{
+                color: white;
+            }
+
+
+        .aboutUsPg{
+            background: white;
+            height: 200vh;
+        }
+
+        .aboutUsTop .sqaure {
+            height: 40px;
+            width: 40px;
+            background: #0b4012;
+            margin: 0 0 0 780px;
+        }
+
+        .aboutUsTop .column1{
+            display: flex;
+            flex-direction: column;
+          
+            
+        }
+
+            .aboutUsTop .column1 img {
+          border-radius: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="aboutUsPg">
+        <div class="aboutUs">
+            <div class="aboutUsTop">
+                <div class="column1">
+                    <div>
+                        <img alt="Founder" src="~/Image/founder.png">
+
+
+                    </div>
+                    <div class="sqaure">
+
+
+                    </div>
+
+                </div>
+
+                <div class="column2">
+                    <div class="content">
+                        <h1>Who we are</h1>
+                        <p>
+                            Discover the power of nature with organic herbal products designed to enhance your health and well-being naturally.
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="aboutUsCenter">
+                <div class="column">
+                    <div>
+
+                        <p><strong>Our purpose</strong>: We use the power of leading-edge science to save and improve lives around the world</p>
+                    </div>
+              
+
+                    <div>
+                        <p class="aboutText"><strong>Vita+</strong> is founded on the basis of providing the world accessibility to people in need around</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="aboutUsBottom">
+                <div class="image-content">
+                    <span class="text-content1">
+                        <h1>Our values</h1>
+                        <p>We hold ourselves to the highest standards of ethics and integrity.</p>
+                    </span>
+
+                    <img src="~/Image/ourValuesImg.png" alt="People riding bicycles">
+                </div>
+
+                <div class="text-content">
+                    <h2>
+                        Our values represent the core of our character and guide every decision and action we take.
+                    </h2>
+                    <ul>
+                        <li>&#10003  Sustainable and Ethical Practices</li>
+                        <li>&#10003 Expert Guidance</li>
+                        <li>&#10003 Comprehensive Product Information</li>
+                        <li>&#10003 100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</body>
+</html>

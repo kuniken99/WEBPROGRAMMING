@@ -1,0 +1,171 @@
+@model IEnumerable<INFT3050.Models.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+    }
+
+    h1 {
+        margin-top: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .manageOrders {
+        height: 591px;
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .manageOrdersPg{
+        height: 120vh;
+        padding:100px 0;
+    }
+
+    .Btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .Btn {
+        background-color: #595957;
+        color: white;
+    }
+
+        .Btn:hover {
+            background-color: #404040;
+        }
+
+    .table-container {
+        max-height: 300px; /* Adjust as needed */
+        overflow-y: auto;
+        margin: 30px 0;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background: #4CAF50;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .manageOrders .homeBtn {
+        color: white;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+     .manageOrders .homeBtn:hover {
+            color: white;
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        
+</style>
+<div class="manageOrdersPg">
+
+<!-- Admin Manage Orders Page -->
+<div class="manageOrders">
+    <h1>Manage Orders</h1>
+    <div class="back-button-container">
+        <a asp-controller="Admin" asp-action="Index" class="homeBtn">Back to Home</a>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderID</td>
+                        <td>@order.Customer.Name</td>
+                        <td>@order.Date.ToString("yyyy/MM/dd HH:mm")</td>
+                        <td>
+                            @if (order.Status == 1)
+                            {
+                                <span>Processing</span>
+                            }
+                            else if (order.Status == 2)
+                            {
+                                <span>Delivered</span>
+                            }
+                            else if (order.Status == 3)
+                            {
+                                <span>Out for Delivery</span>
+                            }
+                            else
+                            {
+                                <span>Failed to Deliver</span>
+                            }
+                        </td>
+                        <td>$ @order.OrderHistorySubtotal</td>
+                        <td>
+                            <a asp-controller="Order" class="modify" asp-action="UpdateOrderStatus" asp-route-id="@order.OrderID" method="get">
+                                Update Status
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>

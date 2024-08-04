@@ -1,0 +1,42 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = "Manage Brands";
+}
+        
+   <form asp-action="AddBrand" asp-area="Admin" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+       <div class="item-form">
+                <div>
+            <label asp-for="BrandName" class="form-label">Item Image</label>
+
+                </div>
+                <div>
+                    <input class="form-control">
+
+                </div>
+            </div>
+
+            <div class="item-form">
+                <div>
+                    <label class="form-label">Company</label>
+
+                </div>
+                <div>
+                    <input class="form-control">
+
+                </div>
+            </div>
+
+            <input type="hidden"  />
+            <input type="hidden" />
+
+
+
+    <input type="hidden" asp-for="BrandId" />
+
+            <div class="addItemBtns">
+                <button type="submit" class="save-button">Save</button>
+                <a asp-controller="Item" asp-action="ManageItem" class="cancel-button">Cancel</a>
+            </div>
+
+        </form>

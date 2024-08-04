@@ -1,0 +1,55 @@
+﻿@model INFT3050.Models.Order
+
+@{
+    ViewData["Title"] = "Update Order";
+}
+
+<!-- Admin Orders Page -->
+<div class="frame">
+    <h1>Order > Update Order</h1>
+    <form asp-action="UpdateOrder" method="post">
+        <div class="order-container">
+            <div class="order-itemss">
+                @if (Model != null && Model.OrderItems != null)
+                {
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <div class="order-itemm">
+                            <span class="item-name">@item.item</span>
+                            <span class="item-qty">Qty: @item.Quantity</span>
+                            <span class="item-price">$ @item.item.Price</span>
+                        </div>
+                    }
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span class="total-price">$ @Model.OrderHistorySubtotal</span>
+                    </div>
+                }
+                else
+                {
+                    <p>No order items available.</p>
+                }
+            </div>
+            <div class="order-info">
+                <p><strong>Status:</strong></p>
+                <select asp-for="Status" class="form-control">
+                    <option value="1" selected>Processing</option>
+                    <option value="2">Delivered</option>
+                    <option value="0">Failed to Deliver</option>
+                </select>
+                @if (Model?.Date != null)
+                {
+                    <p><strong>Date Created:</strong> @Model.Date.ToString("yyyy/MM/dd HH:mm")</p>
+                }
+                @if (Model?.Customer != null)
+                {
+                    <p><strong>Customer:</strong> @Model.Customer.Name</p>
+                    <p><strong>Billing Address:</strong></p>
+                    <p>@Model.Customer.Address</p>
+                    <p><strong>Email:</strong> @Model.Customer.Email</p>
+                }
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Order</button>
+    </form>
+</div>

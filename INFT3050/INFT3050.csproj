@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Employee\Views\Employee\Orders\**" />
+    <Compile Remove="Areas\Employee\Views\Employee\Products\**" />
+    <Compile Remove="Areas\Employee\Views\Employee\Users\**" />
+    <Compile Remove="Views\EmployeeView\**" />
+    <Content Remove="Areas\Employee\Views\Employee\Orders\**" />
+    <Content Remove="Areas\Employee\Views\Employee\Products\**" />
+    <Content Remove="Areas\Employee\Views\Employee\Users\**" />
+    <Content Remove="Views\EmployeeView\**" />
+    <EmbeddedResource Remove="Areas\Employee\Views\Employee\Orders\**" />
+    <EmbeddedResource Remove="Areas\Employee\Views\Employee\Products\**" />
+    <EmbeddedResource Remove="Areas\Employee\Views\Employee\Users\**" />
+    <EmbeddedResource Remove="Views\EmployeeView\**" />
+    <None Remove="Areas\Employee\Views\Employee\Orders\**" />
+    <None Remove="Areas\Employee\Views\Employee\Products\**" />
+    <None Remove="Areas\Employee\Views\Employee\Users\**" />
+    <None Remove="Views\EmployeeView\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Image\angle-left.png" />
+    <None Include="wwwroot\Image\angle-right.png" />
+    <None Include="wwwroot\Image\house.png" />
+    <None Include="wwwroot\Image\husky.png" />
+    <None Include="wwwroot\Image\swizterland.png" />
+    <None Include="wwwroot\Image\tea.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Employee\Models\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+
+</Project>

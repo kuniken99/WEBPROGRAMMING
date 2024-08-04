@@ -1,0 +1,244 @@
+﻿@{
+    var cart = new Cart(Context);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - INFT3050</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/INFT3050.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/about.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cartPage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ProductDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/SignUp.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ChangePassword.css" asp-append-version="true" />
+
+    <style>
+
+        #navigationLink {
+            list-style: none;
+            padding: 0;
+        }
+
+        #navigationLink a {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        #navigationLink a.activeLink {
+                background-color: #0074d9; /* Highlight color for active button */
+                color: black; /* Text color for active button */
+        }
+
+        .cartColor {
+            background: white;
+            height: 45px;
+            width: 45px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cartStatus {
+            display: flex;
+            position: relative;
+        }
+
+        .cartImg {
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+            .cartImg:hover {
+                transform: scale(1.1); /* Slightly enlarge on hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+            }
+
+        .cartStatus div:last-child{
+            position: absolute;
+            top: -4px;
+            right: -28px;
+        }
+
+        
+        .vertical-line {
+            border-left: 1px solid #ccc;
+            height: 30px;
+        }
+
+        .logBtn{
+            width: 100px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <header>
+        @if (ViewBag.HideNavBar == null || !(bool)ViewBag.HideNavBar)
+        {
+        <nav class="mainNav" id="navigationLink">
+            <div>
+                <div class="leftNav">
+                    <!-- Vita+ Logo -->
+                    <div class="logo">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="logo-link" style="color: inherit;">
+                            <img src="~/Image/VitaLogo.png" alt="Vita Logo" class="logo-image" />Vita+
+                        </a>
+                    </div>
+
+                    <!-- Navbar List -->
+
+
+                    <ul class="nav-links">
+                        <li><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" class="activeLink">Home</a></li>
+
+                        <li><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About" class="activeLink">About Us</a></li>
+                          @* <li><a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin Page</a></li> *@
+
+                        @* <li><a class="nav-link text-white" asp-area="Employee" asp-controller="Employee" asp-action="EmployeeHome">Employee Page</a></li> *@
+                        <li><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Category">Products</a></li>
+
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="rightNav">
+
+                
+                
+                <!-- These Login buttons and links could be a partial class or a view component -->
+                @* @using Microsoft.AspNetCore.Identity *@
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<User> signInManager
+                @if (signInManager.IsSignedIn(User))
+                {
+
+                    <a asp-area="" asp-controller="Cart" asp-action="CartPage">
+                      <div class="cartStatus">
+
+                        <div class="cartColor">
+                            <img class="cartImg" src="~/Image/grocery-store.png" alt="Cart Image" />
+
+                        </div>
+                        <div>
+                                <span class="badge bg-light text-dark">@cart.Count</span>
+
+                        </div>
+                        </div>
+
+                      
+                    </a>
+
+                    
+                    <!-- Profile -->
+                    <a asp-area="" asp-controller="Account" asp-action="AccountDetails" asp-route-name="@User.Identity?.Name">
+                        <img class="profileImg" src="~/Image/defaultProfile.jpg" alt="View Account details" />
+                        <span class="text-light">@User.Identity?.Name</span>
+                    </a>
+
+                    <!-- Vertical Line -->
+                    <div class="vertical-line"></div>
+
+                    <!-- Order History -->
+                    <a asp-area="" asp-controller="Account" asp-action="OrderHistory" asp-route-name="@User.Identity?.Name">
+                        <span class="text-light">Order History</span>
+                    </a>
+                 
+                <!-- These Login buttons and links could be a partial class or a view component -->
+             
+                    // signed-in user - Log Out button and username and change password link
+                    <form method="post" asp-action="LogOut" asp-controller="Account" class="logBtn"
+                          asp-area="">
+                        <input type="submit" value="Log Out"
+                               class="btn btn-outline-light" />
+                      
+                    </form>
+
+                }
+                @*  *@
+                else
+                {
+                    //cart not working when you press cart without logging in
+
+                    <a asp-area="" asp-controller="Cart" asp-action="CartPage">
+                        <div class="cartStatus"> 
+                            <div class="cartColor">
+                                <img class="cartImg" src="~/Image/grocery-store.png" alt="Cart Image" />
+
+
+                            </div>
+                            <div>
+                             
+
+
+                            </div>
+                        </div>
+                       
+                    </a>
+                    // anonymous user - Register link and Log In button
+                   
+                    <a asp-action="Login" asp-controller="Account"
+                       asp-area="" class="logBtn">
+                        <input type="submit" value="Log In"
+                               class="btn btn-outline-light" />
+                   </a>
+                   
+                }
+
+            </div>
+        </nav>
+        }
+    </header>
+
+    <div >
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+            © 2024 Copyright: Vita+
+</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+    <script>
+
+        const navigationItems = document.querySelectorAll('#navigationLink a');
+
+        navigationItems.forEach((item) => {
+            item.addEventListener('click', () => {
+
+                navigationItems.forEach((navItem) => {
+                    navItem.classList.remove('activeLink');
+                });
+
+
+                item.classList.add('activeLink');
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+﻿@model Item
+@{
+    // this view is used for add, edit, and delete.
+    //var action = ViewContext.RouteData.Values["action"]!.ToString()!.Capitalize();
+    string title = "Items";
+    ViewData["Title"] = title;
+}
+
+
+<style>
+
+ 
+
+    .addItemPg{
+        height: 110vh;
+        display: flex;
+        justify-content: center;
+        margin: 0 0 40px 0;
+     
+    }
+
+    input {
+        height: 20px;
+        width: 300px;
+        border: 2px solid black;
+        border-radius: 8px;
+    }
+
+    .addItem{
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        flex-direction: column;
+        margin: 100px 0 0 0;
+        height: 100vh;
+        width: 400px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+
+    .imageAdd{
+       
+    }
+    
+    .addItemBtns{
+        display: flex;
+        justify-content: space-between;
+       margin: 20px 0 0 0;
+    }
+
+    .save-button{
+        color: white;
+        background: #56B280;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+    }
+
+    .cancel-button{
+        color: white;
+        background: red;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .itemInput{
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .dangerWarning {
+        position: absolute;
+        top: 40px;
+        left: 400px;
+        pointer-events: none;
+        color: red;
+        width: 200px;
+        height: 20px;
+    }
+
+
+    .item-form{
+        position: relative;
+    }
+
+</style>
+
+<div class="addItemPg">
+
+    <div class="addItem">
+        <h2>@title</h2>
+
+
+      
+
+
+
+
+
+
+            <form asp-action="EditItem" asp-controller="Item" asp-area="Admin" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="ItemName" class="form-label">Item Name</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="ItemName" class="form-control">
+                    <span asp-validation-for="ItemName" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="VitaminType" class="form-label">Vitamin Type</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="VitaminType" class="form-control">
+                    <span asp-validation-for="VitaminType" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="Description" class="form-label">Description</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="Description" class="form-control">
+                    <span asp-validation-for="Description" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="Quantity" class="form-label">Quantity</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="Quantity" class="form-control">
+                    <span asp-validation-for="Quantity" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="Category" class="form-label">Category</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="Category" class="form-control">
+                    <span asp-validation-for="Category" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="Price" class="form-label">Price</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="Price" class="form-control">
+                    <span asp-validation-for="Price" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="Company" class="form-label">Company</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="Company" class="form-control">
+                    <span asp-validation-for="Company" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="item-form">
+                    <div>
+                        <label asp-for="DateAdded" class="form-label">Date Added</label>
+
+                    </div>
+                    <div>
+                        <input asp-for="DateAdded" class="form-control">
+                    <span asp-validation-for="DateAdded" class="dangerWarning"></span>
+
+
+                    </div>
+                </div>
+
+
+
+                <input type="hidden" asp-for="ItemID" />
+
+
+                <div class="addItemBtns">
+                    <button type="submit" class="save-button">Save</button>
+                    <a asp-controller="Item" asp-action="ManageItem" class="cancel-button">Cancel</a>
+                </div>
+
+            </form>
+
+    </div>
+
+</div>

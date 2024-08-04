@@ -1,0 +1,120 @@
+﻿@model Item
+@{
+    ViewData["Title"] = "Landing Page";
+}
+
+<style>
+    .adminOptions {
+        margin-top: 100px;
+        margin-bottom: 113px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .box {
+        margin: 20px;
+        height: 300px;
+        width: 300px;
+        transition: transform 500ms ease-in-out;
+        font-size: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+
+    .orders {
+        background: #fab66e;
+        border: 8px solid #b86628;
+    }
+
+    .users {
+        background: #5662cc;
+        border: 8px solid #2f2c96;
+    }
+
+    .products {
+        background: #ed8aa9;
+        border: 8px solid #8c2e3e;
+    }
+
+    .icon {
+        margin-bottom: 10px;
+    }
+
+    .welcome {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .adminLink .icon {
+        text-decoration: none;
+        color: white;
+    }
+
+     .adminLink {
+        text-decoration: none;
+        color: white;
+    }
+
+    .adminOptions a{
+        text-decoration: none;
+        color: white;
+    }
+
+</style>
+
+@* @using Microsoft.AspNetCore.Identity *@
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<User> signInManager
+@if (signInManager.IsSignedIn(User))
+{
+    <h1 class="welcome">Welcome back, @User.Identity?.Name!</h1>
+}
+
+<div class="adminOptions">
+   
+
+    <!-- First option: Orders -->
+    <a asp-controller="Order" asp-action="ManageOrders" class="adminLink">
+
+    <button class="box orders">
+       
+            <img src="~/Image/ordersIcon.png" class="icon" alt="Orders" height="40px" />
+            Manage Orders
+    </button>
+    </a>
+
+
+    <!-- Second option: Users -->
+    <a asp-controller="Account" asp-action="ManageUsers" class="adminLink">
+
+    <button class="box users">
+
+            <img src="~/Image/employeesIcon.png" class="icon" alt="Manage users images" height="40px" />
+            Manage Users
+        </button>
+
+    </a>
+
+
+    <!-- Third option: Products -->
+
+    <a asp-controller="Item" asp-action="ManageItem" class="adminLink">
+        <button class="box products">
+
+            <img src="~/Image/productIcon.png" class="icon" alt="Product" height="40px" />
+            Manage Items
+    </button>
+
+    </a>
+
+</div>

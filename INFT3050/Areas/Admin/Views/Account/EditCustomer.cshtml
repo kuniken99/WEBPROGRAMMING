@@ -1,0 +1,148 @@
+﻿@using INFT3050.Areas.Admin.Models;
+
+@model EditCustomerViewModel
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+
+<style>
+    .addCustomer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 100px 0 0 0;
+    }
+
+    .inputBoxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        color: black;
+    }
+
+    input, select {
+        width: 200px;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .addItemBtns {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .save, .cancel-button {
+        color: white;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .save {
+        background: #56B280;
+    }
+
+    .cancel-button {
+        background: red;
+    }
+
+    .addEmployees {
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
+    }
+
+    .inputForm {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        flex-direction: column;
+        margin: 0 0 0 0;
+        height: 74vh;
+        width: 400px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+
+    .role{ 
+        border: 2px solid black;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+
+        .inputBox {
+        position: relative;
+    }
+
+    .dangerWarning {
+        position: absolute;
+        top: 40px;
+        left: 400px;
+    @*Pointer events*@ pointer-events: none;
+        color: red;
+        width: 200px;
+        height: 20px;
+
+    }
+    .
+</style>
+
+<div class="addCustomer">
+    <div class="inputForm">
+        <h2>Edit Customer</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-controller="Account" asp-action="EditCustomer" method="post">
+        <input type="hidden" asp-for="CustomerID"/>
+            <div class="inputBoxes">
+                <div>
+                    <label asp-for="Name">Name</label><br>
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="dangerWarning"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Role" >Role</label><br>
+                    <label class="role">Customer</label>
+
+                   
+                </div>
+
+                <div>
+                    <label asp-for="Username">Username</label><br>
+                    <input type="text" class="form-control" asp-for="Username">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber">Phone Number</label><br>
+                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                    <span asp-validation-for="PhoneNumber" class="dangerWarning"></span>
+                </div>
+            </div>
+
+            <div class="addItemBtns">
+                <button type="submit" class="save">Save</button>
+                <a asp-controller="Account" asp-action="ManageUsers" class="cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

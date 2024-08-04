@@ -1,0 +1,169 @@
+﻿/*Learned from function from uiverse.io https://uiverse.io/VitorBaraoDias/splendid-catfish-27*/
+.mainShape {
+    display: flex;
+    position: relative;
+    max-width: 98vw;
+    height: 120vh;
+}
+
+
+
+.recReg {
+    height: 122vh;
+    width: 600px;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    background: white;
+    padding: 10px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.parallelogramReg {
+    width: 30%;
+    height: 122vh;
+    transform: skew(14deg);
+    background: white;
+    position: absolute;
+    right: 400px;
+}
+
+.imgBoxReg {
+    height: 122vh;
+    z-index: -2;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ImgReg {
+    height: 122vh;
+    width: 140%;
+}
+
+/*Form css */
+.registerBox {
+    background-color: #adb5ba;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 740px;
+    padding: 10px 20px 10px 20px;
+    width: 560px;
+    color: #eee;
+    position: absolute;
+    z-index: 5;
+    right: 140px;
+    top: 100px;
+}
+
+
+/*Register input */
+.reg1 {
+    z-index: 3;
+}
+
+.regInput {
+    background-color: white;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: black;
+    font-size: 18px;
+    height: 40px;
+    outline: 0;
+    width: 80%;
+    z-index: 3;
+    padding: 0 0 0 20px;
+}
+
+.regInputAddress-input {
+}
+
+.regInputAddress {
+    background-color: white;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: black;
+    font-size: 18px;
+    height: 40px;
+    outline: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.iLabel {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms, border 200ms;
+    top: 13px;
+    z-index: 3;
+}
+
+.regInput:focus ~ .iLabel,
+.regInput:not(:placeholder-shown) ~ .iLabel,
+input:-webkit-autofill ~ .iLabel {
+    transform: translateY(-45px) translateX(-15px) scale(0.75);
+    background: white;
+    border: 4px solid #696c6e;
+    border-radius: 10px;
+    padding: 10px 10px;
+    z-index: -1;
+}
+
+input:not(:focus) .Label {
+    color: black;
+}
+
+input:focus {
+    color: black;
+}
+
+.submitReg {
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #c6f5e4;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    width: 80%;
+    margin-top: 30px;
+}
+
+.input-container {
+    height: 30px;
+    position: relative;
+    width: 100%;
+    margin: 40px 0 0 0;
+}
+
+/*Form css */
+.mainShape .welcomeTitle {
+    font-weight: 200;
+    font-size: 32px;
+    width: 200px;
+
+}
+
+.vitaTitle {
+    color: dodgerblue;
+    font-size: 32px;
+    margin: 0 0 0 0;
+}
+
+
+.registerForm {
+    margin: 0 -110px 0 0;
+}
+

@@ -1,0 +1,349 @@
+﻿@model ItemImageListViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- For homepage content swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<style>
+
+    .swiper {
+        padding: 0 30px;
+        width: 60vw;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        position: unset;
+        overflow: unset;
+        overflow-x: clip;
+        list-style: none;
+        padding: 0;
+        z-index: 1;
+        display: block;
+    }
+
+    .arrows {
+        color: green;
+    }
+
+    .product:hover {
+        border: 1px solid #000;
+    }
+
+    .indexHeader2 h2 {
+        font-weight: 600;
+        font-size: 40px;
+    }
+
+    .see-more-btn {
+        margin-top: 20px;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+        display: inline-block;
+        align-items: center;
+        position: absolute;
+        right: 20px; /* Position the button on the right */
+    }
+
+        .see-more-btn:hover {
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            transform: scale(1.05);
+        }
+
+    .see-more-link {
+        text-decoration: none;
+        color: white;
+        display: inline-block;
+    }
+
+    .seeMore {
+        color: white;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .carousel-indicators li {
+        background-color: #4CAF50;
+    }
+
+    .carousel-indicators .active {
+        background-color: #388E3C;
+    }
+
+    .productGall {
+        margin-top: 30px;
+    }
+    
+</style>
+
+<div class="mainLayout">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a asp-controller="Home" asp-action="Category">  <img class="d-block w-100" src="~/Image/carousel_9.png" alt="First slide"> </a>
+            </div>
+            <div class="carousel-item">
+                <a asp-controller="Home" asp-action="Category"> <img class="d-block w-100" src="~/Image/carousel_8.png" alt="Second slide"> </a>
+            </div>
+            <div class="carousel-item">
+                <a asp-controller="Home" asp-action="About"> <img class="d-block w-100" src="~/Image/carousel_11.png" alt="Third slide"> </a>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+
+
+
+    <!--This layout will display the popular produts bought in terms of quantity -->
+    <div class="homeLayout1">
+
+        <div class="popBoxContent">
+
+            <div class="indexHeader">
+                <div>
+                    <h2>Popular</h2>
+                    <p>Our top selling product that you may like</p>
+
+                </div>
+
+            </div>
+
+            <div class="contentDetail">
+
+
+          
+
+                    <div class="container swiper">
+                        <div class="slider-wrapper">
+                            <div class="card-list swiper-wrapper">
+
+                                @foreach (var item in Model.Items.Take(6))
+                                {
+                                    bool imageFound = false;
+
+                                    <div class="card-item swiper-slide">
+
+
+                                        <div class="product">
+
+                                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.ItemID">
+                                                @foreach (var image in Model.Images)
+                                                {
+                                                    if (item.ItemID == image.ItemID)
+                                                    {
+                                                        <div class="imagebox">
+                                                            <img alt="imageProduct" class="imageProduct" src="~/Image/@image.ImagePath"
+                                                                 height="120px">
+                                                        </div>
+                                                        imageFound = true;
+                                                        break;
+                                                    }
+                                                }
+                                                @if (!imageFound)
+                                                {
+                                                    <div class="imagebox">
+                                                        <img alt="imageProduct" class="imageProduct" src="~/Image/vitabottle.png"
+                                                             height="120px">
+                                                    </div>
+                                                }
+
+                                            <div class="contentDetails">
+                                                <div class="productName">@item.ItemName</div>
+                                                <div class="price">@($"${item.Price:F2}")</div>
+                                            </div>
+
+                                            </a>
+
+                                        </div>
+
+                                      
+                                    </div>
+                                     
+
+                                }
+
+
+
+
+
+                            </div>
+                        
+                        <div class="swiper-pagination"></div>
+                        
+             
+                        </div>
+       
+                  
+                    </div>
+
+                <div class="swiper-slide-button swiper-button-prev arrows"></div>
+                <div class="swiper-slide-button swiper-button-next arrows"></div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--  This layout will display some products sold -->
+    <div class="homeLayout2">
+        <div class="indexHeader2">
+            <div>
+                <!--  This is intentionally kept like this don't remove -->
+            </div>
+            <div class="mainHeading">
+                <h2>Products</h2>
+                <p>Order it for you or for your beloved ones </p>
+            </div>
+
+            
+            
+        </div>
+
+
+        <!-- See more btn -->
+        <button class="btn btn-primary see-more-btn">
+            <a asp-action="Category" asp-controller="Home" class="see-more-link">
+                <p class="seeMore">See more ></p>
+            </a>
+        </button>
+       
+
+        <div class="productGall">
+
+            <!-- Show all items (products)-->
+            <div class="productRow">
+
+                @foreach (var item in Model.Items.Take(8))
+
+                {
+                    bool imageFound = false;
+                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.ItemID">
+
+                    <div class="product">
+                        <div class="imagebox">
+                            @foreach (var image in Model.Images)
+                            {
+                                if (item.ItemID == image.ItemID)
+                                {
+                                    <div class="imagebox">
+                                        <img alt="imageProduct" class="imageProduct" src="~/Image/@image.ImagePath"
+                                             height="120px">
+                                    </div>
+                                    imageFound = true;
+                                    break;
+                                }
+                            }
+                            @if (!imageFound)
+                            {
+                                <div class="imagebox">
+                                    <img alt="imageProduct" class="imageProduct" src="~/Image/vitabottle.png"
+                                         height="120px">
+                                </div>
+                            }
+                        </div>
+
+                        <div class="contentDetails">
+                            <div class="productName">@item.ItemName</div>
+                            <div class="price">@($"${item.Price:F2}")</div>
+                        </div>
+
+                    </div>
+                    </a>
+
+                  
+                }
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+ 
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+<script>
+
+    const swiper = new Swiper('.slider-wrapper', {
+        loop: true,
+        grabCursor: true,
+  
+        // Pagination bullets
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 2
+            },
+            1024: {
+                slidesPerView: 3
+            }
+        }
+    });
+
+
+    /*Controls how long it takes for it to move */
+    $('.carousel').carousel({
+        interval: 5000
+    })
+
+
+
+</script>
+

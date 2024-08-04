@@ -1,0 +1,133 @@
+﻿@model CustomerRegisterViewModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+<style>
+    /*Learned from function from uiverse.io https://uiverse.io/VitorBaraoDias/splendid-catfish-27*/
+
+    .title {
+        color: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        margin-top: 10px;
+
+    }
+
+
+    .regTitle {
+      
+        margin: 0 0 60px 0;
+    }
+
+    .recReg {
+        height: 122vh;
+        width: 600px;
+        z-index: 2;
+        position: absolute;
+        right: 0;
+        background: white;
+        padding: 10px 0 20px 0;
+    }
+
+    .regTitle {
+        gap: 200px;
+        margin: 20px 20px 20px 60px;
+    }
+
+    .welcomeTitle {
+        font-weight: 200;
+        font-size: 32px;
+        width: 200px;
+        margin-left: -260px;
+    }
+
+</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/css/SignUp.css" />
+</head>
+<body>
+    <div class="mainShape">
+
+        <div class="ImgBoxReg">
+            <img src="~/Image/herbPic.jpg" alt="Login Herbal Photo" class="ImgReg" />
+        </div>
+
+        <div class="parallelogramReg"></div>
+
+        <div class="recReg">
+            <div class="regTitle">
+                <span class="welcomeTitle">Welcome to <span class="vitaTitle">Vita+</span></span>
+            </div>
+
+
+            <div class="registerBox">
+                <div class="title">Sign Up</div>
+                <div>Already have an account? <a asp-controller="Account" asp-action="Login">Sign in</a> </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <form asp-controller="Account" asp-action="SignUp" method="post" class="registerForm">
+                    <div class="input-container reg1">
+                        <input asp-for="Name" placeholder="" type="text" class="regInput" autocomplete="off" />
+                        <div class="cut cut-short"></div>
+                        <label asp-for="Name" class="iLabel" for="input">Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="Email" placeholder="" type="email" class="regInput" autocomplete="off">
+                        <div class="cut cut-short"></div>
+                        <label asp-for="Email" class="iLabel" for="input">Email Address</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="Username" placeholder="" type="text" class="regInput" autocomplete="off">
+                        <div class="cut cut-short"></div>
+                        <label asp-for="Username" class="iLabel" for="input">Username</label>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="Password" placeholder="" type="password" class="regInput" autocomplete="new-password" />
+                        <div class="cut cut-short"></div>
+                        <label asp-for="Password" class="iLabel" for="input">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="ConfirmPassword" placeholder="" type="password" class="regInput" autocomplete="new-password" />
+                        <div class="cut cut-short"></div>
+                        <label asp-for="ConfirmPassword" class="iLabel" for="input">Confirm Password</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="Address" placeholder="" type="text" class="regInput" autocomplete="off" />
+                        <div class="cut cut-short"></div>
+                        <label asp-for="Address" class="iLabel" for="input">Address</label>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-container reg1">
+                        <input asp-for="PhoneNumber" placeholder="" type="text" class="regInput" autocomplete="off" />
+                        <div class="cut cut-short"></div>
+                        <label asp-for="PhoneNumber" class="iLabel" for="input">Mobile Number</label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <button class="submitReg" type="submit">Register</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

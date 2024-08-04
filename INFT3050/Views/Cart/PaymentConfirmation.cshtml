@@ -1,0 +1,88 @@
+﻿@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section {
+            height: 100vh;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .form-section {
+            height: 60vh;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #56B280;
+            font-size: 2em;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        .btn-shopping {
+            background-color: #1e8449; /* Darker green color */
+        }
+
+            .btn-shopping:hover {
+                background-color: #239b56; /* Slightly lighter green color */
+            }
+
+        .btn-history {
+            background-color: #27ae60; /* Green color */
+        }
+
+            .btn-history:hover {
+                background-color: #2ecc71; /* Lighter green color */
+            }
+
+        .fancy-border {
+            border: 2px dashed #2ecc71;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="form-section">
+            <h2>Payment Confirmed&#x2705;</h2>
+            <p>Thank you for your purchase. The nature is grateful to you. Now that your order is confirmed.</p>
+            <a asp-controller="Home" asp-action="Index"><button class="btn-shopping">Back To Shopping</button></a>
+            <a asp-controller="Account" asp-action="OrderHistory" asp-route-name="@User.Identity?.Name"><button class="btn-history">View Order History</button></a>
+        </div>
+        <div class="fancy-border">
+            <p>We appreciate your support for our products. If you have any questions, feel free to contact our support team at +65 8901 2345</p>
+        </div>
+    </div>
+</body>
+</html>

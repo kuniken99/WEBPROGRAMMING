@@ -1,0 +1,598 @@
+﻿@model ProductDetailViewModel
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .productDetailsPg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .productLayout1 {
+            background: rgba(176, 223, 173, 0.5);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 70%;
+        }
+
+        .product1 {
+            margin-right: 100px;
+        }
+
+        .product2 {
+            margin-top: 20px;
+        }
+
+        .imageSlider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; 
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 300px;
+        }
+
+        .mySlides {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            height: 260px;
+            width: 260px;
+            position: relative;
+
+        }
+
+        .imgGallery {
+            height:240px;
+            width:auto;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .row {
+            background: white;
+            border: 2px solid black;
+        }
+
+  
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 36%;
+            width: auto;
+            padding: 16px;
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+            user-select: none;
+            transform: translateY(-50%);
+            transition: 0.3s;
+            margin: 0 100px;
+        }
+
+        .prev{
+            left: -80px;
+        }
+
+        .next {
+            right: -80px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+
+           
+
+        .slideBtn {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+           
+        }
+
+        .column {
+            float: left;
+            width: 25%;
+            padding: 5px;
+        }
+
+        .demo {
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+            .active, .demo:hover {
+                opacity: 1;
+            }
+
+        .productTitle {
+            margin: 10px 0;
+            font-size: 32px;
+            color: #56B280;
+        }
+
+        .addToCartBtn {
+            display: inline-block;
+            background: #56B280;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+            .addToCartBtn:hover {
+                background: #469f68;
+                transform: scale(1.05);
+            }
+
+        .productOpts span {
+            margin-left: 10px;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .productLayout2 {
+            width: 70%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .optionView {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+            .optionView span {
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+                .optionView span:hover {
+                    color: #56B280;
+                }
+
+        #descriptionS {
+            display: block;
+        }
+
+            #descriptionS p {
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            #descriptionS h4 {
+                font-size: 20px;
+                margin-bottom: 10px;
+                color: #56B280;
+            }
+
+            #descriptionS ul {
+                list-style: disc;
+                padding-left: 20px;
+                margin-bottom: 20px;
+            }
+
+        .outOfStock {
+            color: red;
+            font-weight: bold;
+        }
+
+
+
+     
+        .minus, .plus{
+            background: white;
+            padding: 0 0 10px 0;
+
+        }
+
+
+        .buttons span,
+        .buttons input{
+            background-color: white;
+            font-size: 18px;
+            padding: 8px;
+            color: green;
+        }
+
+
+        .value {
+            text-align: center;
+            width: 44px;
+            padding: 0 10px;
+            align-items: center;
+        }
+        
+        .buttons span{
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .buttons span:first-child{
+            border-radius: 25px 0 0 25px;
+        }
+
+        .buttons span:last-child{
+            border-radius: 0 25px 25px 0;
+        }
+
+        .buttons span:hover{
+            color: white;
+            background: green;
+        }
+
+
+        .qty-container{
+            display: none;
+        }
+
+
+
+        .quantity {
+            display: flex;
+            margin: 20px 250px 20px 0;
+        }
+
+            .quantity .minus, .quantity .add {
+                background-color: #56B280;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+                margin: 0 5px;
+                transition: ease-in-out 300ms;
+            }
+
+            .quantity .minus:hover, .quantity .add:hover {
+                background-color: #31945e;
+                color: white;
+            }
+
+
+            .quantity .minus::after, .quantity .add::after {
+                background-color: #31945e;
+                color: white;
+                transform:scale(90%);
+            }
+
+
+        .imageFrame {
+            padding: 10px;
+            border: 2px solid #56B0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            display: inline-block;
+        }
+
+        .imgGallery{
+            background: white;
+        }
+
+
+        .row img{
+            height: 40px;
+            width: 40px;
+        }
+
+        .cursor .slide{
+            background: white;
+        }
+
+        .pricee {
+            font-size:1.3rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="productDetailsPg">
+
+        <div class="productLayout1">
+
+            <div class="product1">
+                <div class="imageSlider">
+                    <div class="container">
+                        @{
+                            bool mainImageFound = false;
+                        }
+                        @foreach (var image in Model.Images)
+                        {
+                            if (image.ItemID == Model.Product.ItemID)
+                            {
+                                <div class="mySlides">
+                                    <img src="~/Image/@image.ImagePath" class="imgGallery">
+                                </div>
+                                mainImageFound = true;
+                            }
+                        }
+                        @if (!mainImageFound)
+                        {
+                            <div class="mySlides">
+                                <div class="imageFrame">
+                                    <img src="~/Image/vitabottle.png" class="imgGallery">
+                                </div>
+                            </div>
+
+                        }
+                        <div class="slideBtn">
+                            <a class="prev" onclick="plusSlides(-1)">❮</a>
+                            <a class="next" onclick="plusSlides(1)">❯</a>
+                        </div>
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+                        <div class="row">
+                            @{
+                                bool imageFound = false;
+                            }
+                            @foreach (var image in Model.Images)
+                            {
+                                if (image.ItemID == Model.Product.ItemID)
+                                {
+                                    <div class="column">
+                                        <img class="demo "  src="~/Image/@image.ImagePath" onclick="currentSlide(1)">
+                                    </div>
+                                    imageFound = true;
+                                }
+                            }
+                            @if (!imageFound)
+                            {
+                                <div class="column">
+                                    <img class="demo cursor" src="~/Image/vitabottle.png" onclick="currentSlide(1)">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product2">
+                <h3 class="productTitle"><strong>@Model.Product.ItemName</strong></h3>
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<User> signInManager
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <form asp-action="Add" asp-controller="Cart" method="post">
+                        <div class="pricee">
+                            @($"${Model.Product.Price:F2}")
+                        </div>
+                        <div class="qty-container">
+                            <button type="button" onclick="decrement()">-</button>
+                            <h2 id="counting"></h2>
+                            <button type="button" onclick="increment()">+</button>
+                        </div>
+                        <div class="quantity">
+                            <span class="minus">&minus;</span>
+                            <input type="text" class="value" name="quantity" value="01" />
+                            <span class="add">&plus;</span>
+                        </div>
+                        <div class="productOpts">
+                            <input type="hidden" name="id" value="@Model.Product.ItemID" />
+                            <button type="submit" class="addToCartBtn">Add to Cart</button>
+                            @if (Model.Product.Quantity == 0)
+                            {
+                                <span class="outOfStock">Out of Stock</span>
+                            }
+                            else if (Model.Product.Quantity < 10)
+                            {
+                                <span>@Model.Product.Quantity Item(s) Left</span>
+                            }
+                            else
+                            {
+                                <span>In Stock</span>
+                            }
+                        </div>
+                    </form>
+                }
+
+                else
+                {
+                    <form asp-action="LogIn" asp-controller="Account" method="get">
+                        <div class="pricee">
+                            @($"${Model.Product.Price:F2}")
+                        </div>
+                        <div class="qty-container">
+                            <button type="button" onclick="decrement()">-</button>
+                            <h2 id="counting"></h2>
+                            <button type="button" onclick="increment()">+</button>
+                        </div>
+                        <div class="quantity">
+                            <span class="minus">&minus;</span>
+                            <input type="text" class="value" name="quantity" value="01" />
+                            <span class="add">&plus;</span>
+                        </div>
+                        <div class="productOpts">
+                            <input type="hidden" name="id" value="@Model.Product.ItemID" />
+                            <button type="submit" class="addToCartBtn">Add to Cart</button>
+                            @if (Model.Product.Quantity == 0)
+                            {
+                                <span class="outOfStock">Out of Stock</span>
+                            }
+                            else if (Model.Product.Quantity < 10)
+                            {
+                                <span>@Model.Product.Quantity Item(s) Left</span>
+                            }
+                            else
+                            {
+                                <span>In Stock</span>
+                            }
+                        </div>
+                    </form>
+                }
+
+
+
+            </div>
+
+        </div>
+
+        <div class="productLayout2">
+            <div class="optionView">
+                <span id="descriptionBtn" onclick="showDescription()">Description</span>
+            </div>
+
+            <div id="descriptionS">
+                <p>
+                    @Model.Product.Description
+                </p>
+                <p>Product ID: @Model.Product.ItemID</p>
+                <p>Vitamin Type: @Model.Product.VitaminType</p>
+                <p>Vitamin Category: @Model.Product.Category</p>
+                <p>Company Name: @Model.Product.Company</p>
+                <p>Date Added: @Model.Product.DateAdded</p>
+                <br />
+
+                
+
+              </div>
+        </div>
+
+
+
+       
+
+    </div>
+
+    <script>
+        function showDescription() {
+            document.getElementById("descriptionS").style.display = "block";
+        }
+
+        
+
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("demo");
+            let captionText = document.getElementById("caption");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+
+
+
+        //Qty button function
+        let minus = document.querySelector('.minus');
+        let add = document.querySelector('.add');
+        let input = document.querySelector('.value');
+
+        let format = (num) => (num > 9 ? num : '0' + num);
+
+        minus.addEventListener('click', () => {
+            let number = parseInt(input.value);
+            if (number <= 1) {
+                input.value = format(parseInt('01'));
+            }
+            else {
+                input.value = format(parseInt(input.value) - 1);
+
+            }
+        });
+
+
+
+        //Check if the quantity exceeds the threshold
+        //input
+
+        const MaximumQty = @Model.Product.Quantity;
+
+
+        add.addEventListener('click', () => {
+            let number = parseInt(input.value);
+
+            if (number < MaximumQty) {
+                input.value = format(number + 1);
+            } else {
+                alert('You added the maximum stock.');
+            }
+        });
+
+        //Button
+        input.addEventListener('keyup', () => {
+            let number = parseInt(input.value);
+            if (isNaN(number) || number < 1) {
+                input.value = '1';
+            } else if (number > MaximumQty) {
+                input.value = format(MaximumQty);
+                alert('You added the maximum stock.');
+                input.value = format
+            } else {
+                input.value = format(number);
+            }
+        });
+
+
+
+    </script>
+
+</body>
+</html>

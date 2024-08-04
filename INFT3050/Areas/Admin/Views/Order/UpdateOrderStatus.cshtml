@@ -1,0 +1,151 @@
+﻿@using INFT3050.Areas.Admin.Models;
+@model OrderStatusViewModel
+@{
+    // this view is used for add, edit, and delete.
+    //var action = ViewContext.RouteData.Values["action"]!.ToString()!.Capitalize();
+    string title = "Orders";
+    ViewData["Title"] = title;
+}
+
+
+<style>
+
+
+
+    .addItemPg {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: -100px 0 0 0;
+    }
+
+    input {
+        height: 20px;
+        width: 300px;
+        border: 2px solid black;
+        border-radius: 8px;
+    }
+
+    .orderForm {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        flex-direction: column;
+        margin: 100px 0 0 0;
+        height: 40vh;
+        width: 400px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+
+    .imageAdd {
+    }
+
+    .addItemBtns {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin: 20px 0 0 0;
+    }
+
+    .save-button {
+        color: white;
+        background: #56B280;
+        margin: 0 10px;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+    }
+
+    .cancel-button {
+        color: white;
+        background: red;
+        margin: 0 10px;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .itemInput {
+        display: flex;
+        justify-content: center;
+    }
+
+    .dangerWarning {
+        position: absolute;
+        top: 40px;
+        left: 400px;
+    @*Pointer events*@ pointer-events: none;
+        color: red;
+        width: 200px;
+        height: 20px;
+    }
+
+
+    .item-form {
+        position: relative;
+    }
+
+</style>
+
+<div class="addItemPg">
+
+    <div class="orderForm">
+        <h2>@title</h2>
+
+        <form asp-action="UpdateOrderStatus" asp-area="Admin" asp-controller="Order" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="item-form">
+
+                <div class="profile-item">
+                    <label class=>Order ID: </label>
+                    <span>@Model.OrderID</span>
+                </div>
+                <div class="profile-item">
+                    <label class=>Date: </label>
+                    <span>@Model.OrderDate.ToString("yyyy/MM/dd HH:mm")</span>
+                </div>
+
+                <div class="inputBox">
+                    <label asp-for="OrderStatus" class="form-label">Status:</label>
+                    <select asp-for="OrderStatus" class="form-control">
+                        <option value="1">Processing</option>
+                        <option value="2">Delivered</option>
+                        <option value="3">Out for Delivery</option>
+                        <option value="4">Failed to Deliver</option>
+                    </select>
+                </div>
+
+           </div>
+                
+
+            
+            <input type="hidden" asp-for="OrderID" />
+            <input type="hidden" asp-for="OrderDate" />
+
+
+            <div class="addItemBtns">
+                <button type="submit" class="save-button">Save</button>
+                <a asp-controller="Order" asp-action="ManageOrders" class="cancel-button">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

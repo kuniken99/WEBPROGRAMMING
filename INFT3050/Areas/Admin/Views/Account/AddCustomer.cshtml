@@ -1,0 +1,128 @@
+﻿@using INFT3050.Areas.Admin.Models;
+
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Add Customer";
+}
+
+<style>
+    .inputBoxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        color: white;
+    }
+
+    input, select, textarea {
+        width: 200px;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .addItemBtns {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .save, .cancel-button {
+        color: white;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: 2px solid white;
+        width: 100px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .save {
+        background: #56B280;
+    }
+
+    .cancel-button {
+        background: red;
+    }
+
+    .addEmployees {
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
+    }
+
+    .inputForm {
+        background: green;
+        border-radius: 8px;
+        padding: 40px;
+        width: 400px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+    }
+
+    h2 {
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+<div class="addEmployees">
+    <div class="inputForm">
+        <h2>Add Customer</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-controller="Account" asp-action="AddCustomer" method="post">
+            <div class="inputBoxes">
+                <div>
+                    <label asp-for="Name">Name</label><br>
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Username">Username</label><br>
+                    <input type="text" class="form-control" asp-for="Username">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label>Address</label><br>
+                    <textarea>
+
+                   </textarea>
+                </div>
+
+                <div>
+                    <label asp-for="Password">Password</label><br>
+                    <input type="password" class="form-control" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="ConfirmPassword">Confirm Password</label><br>
+                    <input type="password" class="form-control" asp-for="ConfirmPassword">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber">Phone Number</label><br>
+                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="addItemBtns">
+                <button type="submit" class="save">Save</button>
+                <a asp-controller="Account" asp-action="ManageUsers" class="cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
